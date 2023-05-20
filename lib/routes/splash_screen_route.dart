@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:forca/routes/welcome_route.dart';
 import 'package:forca/widgets/cirular_image_widget.dart';
 
 class SplashScreenRoute extends StatefulWidget {
@@ -12,6 +15,12 @@ class _SplashScreenRouteState extends State<SplashScreenRoute> {
   @override
   void initState() {
     super.initState();
+    Timer(const Duration(seconds: 3), () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const WelcomeRoute()),
+      );
+    });
   }
 
   @override
@@ -37,8 +46,8 @@ class _SplashScreenRouteState extends State<SplashScreenRoute> {
           Padding(
             padding: const EdgeInsets.only(left: 100, right: 100),
             child: LinearProgressIndicator(
-              backgroundColor: Colors.blue[200],
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue[900]!),
+              backgroundColor: Colors.orange[200],
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.orange[900]!),
             ),
           ),
         ]);
