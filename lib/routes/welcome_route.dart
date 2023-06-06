@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forca/routes/home_route.dart';
+import 'package:forca/shared_preferences/app_preferences.dart';
 
 class WelcomeRoute extends StatefulWidget {
   const WelcomeRoute({super.key});
@@ -45,7 +46,7 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
                       width: 5,
                     ),
                     Checkbox(
-                      value: true,
+                      value: _checkBoxIsChecked,
                       onChanged: (status) {
                         setState(() {
                           _checkBoxIsChecked = status!;
@@ -58,10 +59,14 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
                   width: 10,
                 ),
                 ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeRoute()),
-                  ),
+                  onPressed: () async {
+                    AppPreferences.setWelcomeRead(status: _checkBoxIsChecked);
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeRoute()),
+                    );
+                  },
                   child: const Text(
                     'Avançar',
                     style: TextStyle(

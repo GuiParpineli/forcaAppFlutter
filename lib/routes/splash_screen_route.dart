@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:forca/routes/home_route.dart';
 import 'package:forca/routes/welcome_route.dart';
+import 'package:forca/shared_preferences/app_preferences.dart';
 import 'package:forca/widgets/cirular_image_widget.dart';
 
 class SplashScreenRoute extends StatefulWidget {
@@ -16,11 +18,22 @@ class _SplashScreenRouteState extends State<SplashScreenRoute> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
+      AppPreferences.getWelcomeRead().then((status) {
+        _whereToNavigate(welcomeRead: status);
+      });
+    });
+  }
+
+  _whereToNavigate({required bool welcomeRead}) {
+    if (welcomeRead) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeRoute()));
+    } else {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const WelcomeRoute()),
+        MaterialPageRoute(builder: (context) => WelcomeRoute()),
       );
-    });
+    }
   }
 
   @override
